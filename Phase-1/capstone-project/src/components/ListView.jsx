@@ -1,8 +1,8 @@
 import React from "react";
 
-const ListView = ({StudentData}) => {
+const ListView = ({ filteredStudents }) => {
   return (
-    <div className="wrapper p-5 flex flex-wrap gap-5 h-[83vh]">
+    <div className="wrapper p-5 flex flex-wrap gap-5">
       <table className="text-black">
         <thead>
           <tr className="border text-xl">
@@ -14,9 +14,9 @@ const ListView = ({StudentData}) => {
           </tr>
         </thead>
         <tbody>
-          {StudentData.map((data) => (
+          {filteredStudents.map((data) => (
             <tr key={data.id} className="border">
-              <td className="px-5">{data.id}</td>
+              <td className="px-5 py-2">{data.id}</td>
               <td className="px-5">{data.name}</td>
               <td className="px-5">{data.age}</td>
               <td className="px-5">

@@ -2,12 +2,21 @@ import React, { useState } from "react";
 import CardView from "./CardView";
 import ListView from "./ListView";
 
-const Display = ({ StudentData, searchQuery }) => {
+const Display = ({ students, setStudents, searchQuery, checkedGrades }) => {
   const [list, setList] = useState(false);
+
+  const deleteStudent = (id) => {
+    setStudents(students.filter((student) => student.id !== id))
+  }
+
+  const filteredStudents = students.filter((student) =>
+    student.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    checkedGrades[student.grade],
+  );
 
   if (!list) {
     return (
-      <div className="w-[90vw] bg-white ml-[10vw] mt-[10vh] px-20 py-5">
+      <div className="w-[90vw] min-h-[90vh] bg-white ml-[10vw] mt-[10vh] px-20 py-5">
         <div className="container text-black w-full flex justify-end">
           <label className="relative inline-flex items-center cursor-pointer">
             <input type="checkbox" value={list} onChange={() => (setList(!list))} className="sr-only peer" />
@@ -17,7 +26,7 @@ const Display = ({ StudentData, searchQuery }) => {
             </span>
           </label>
         </div>
-        <CardView StudentData={StudentData} searchQuery={searchQuery} />
+        <CardView filteredStudents={filteredStudents} deleteStudent={deleteStudent} />
       </div>
     );
   } else {
@@ -32,7 +41,7 @@ const Display = ({ StudentData, searchQuery }) => {
             </span>
           </label>
         </div>
-        <ListView StudentData={StudentData} searchQuery={searchQuery} />
+        <ListView filteredStudents={filteredStudents} deleteStudent={deleteStudent} />
       </div>
     );
   }
