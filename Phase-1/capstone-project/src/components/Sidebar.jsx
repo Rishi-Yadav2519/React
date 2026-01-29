@@ -1,6 +1,8 @@
 import React from "react";
 
+// taking all required params through array destructuring
 const Sidebar = ({ checkedGrades, setCheckedGrades }) => {
+  // function to handle the checkbox event which ius based on filtering by grades
   const handleCheckboxChange = (grade) => {
     setCheckedGrades({
       ...checkedGrades,
@@ -9,6 +11,7 @@ const Sidebar = ({ checkedGrades, setCheckedGrades }) => {
   };
 
   return (
+    // made different checkboxes with checked value and on change function
     <aside className="bg-neutral-700/70 px-3 py-4 h-[90vh] w-[10vw] fixed z-10 top-[10vh]">
       <label htmlFor="checkbox" className="text-sm font-semibold">
         Filter by grade

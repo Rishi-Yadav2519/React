@@ -1,8 +1,10 @@
 import React from "react";
 
+// taking all required params through array destructuring
 const CardView = ({ filteredStudents, deleteStudent }) => {
   return (
     <div className="wrapper p-5 flex flex-wrap gap-5">
+      {/* Mapping the students in card view based on their unique id using a ternary operator where when there is no user it return a p tag with no data found */}
       {filteredStudents.length > 0 ? (
         filteredStudents.map((data) => (
           <div
@@ -18,11 +20,13 @@ const CardView = ({ filteredStudents, deleteStudent }) => {
                 {data.age}
               </span>
             </div>
+            {/* student email as clickable link */}
             <a href={`mailto:${data.email}`} className="text-black/70">
               {data.email}
             </a>
             <div className="subjectContainer mt-3">
               <ul>
+                {/* Mapping subject in li */}
                 {data.subjects.map((sub) => (
                   <li
                     key={sub.subjectID}
@@ -42,7 +46,7 @@ const CardView = ({ filteredStudents, deleteStudent }) => {
           </div>
         ))
       ) : (
-        <p className="text-black text-xl font-semibold">No users found</p>
+        <p className="text-black text-xl font-semibold">No students found</p>
       )}
     </div>
   );
