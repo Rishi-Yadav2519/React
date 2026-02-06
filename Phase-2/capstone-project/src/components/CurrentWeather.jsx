@@ -2,7 +2,7 @@ import React from 'react'
 
 const CurrentWeather = () => {
   return (
-    <div>
+    <div className='w-[80vw] h-screen'>
       
     </div>
   )
