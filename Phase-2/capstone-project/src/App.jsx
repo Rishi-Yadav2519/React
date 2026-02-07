@@ -1,14 +1,17 @@
 import "./App.css";
 import Content from "./components/Content";
 import NavBar from "./components/Header";
+import { DataProvider } from "./context/DataContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   return (
-    <ThemeProvider>
-      <NavBar />
-      <Content />
-    </ThemeProvider>
+    <DataProvider>
+      <ThemeProvider>
+        <NavBar />
+        <Content />
+      </ThemeProvider>
+    </DataProvider>
   );
 }
 
