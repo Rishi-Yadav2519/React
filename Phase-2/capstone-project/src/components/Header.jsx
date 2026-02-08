@@ -4,13 +4,17 @@ import FavoritesList from "./FavoritesList";
 import Searchbar from "./Searchbar";
 
 const NavBar = () => {
+  // State to manage the visibility of the sidebar
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // Access the toggleTheme function from the ThemeContext
   const { toggleTheme } = useTheme();
 
+  // Function to close the sidebar
   const handleSidebarClose = () => {
     setIsSidebarOpen(false);
   };
 
+  // Function to determine the CSS class for the sidebar based on its open state
   function sideBarToggle() {
     if (isSidebarOpen === true) {
       return "flex";
@@ -25,21 +29,24 @@ const NavBar = () => {
         <p className="heading text-2xl font-semibold sm:text-lg md:text-2xl 2xl:text-3xl">
           Weather APP
         </p>
+        {/* Search bar visible on large screens because smaller screens use the sidebar and tailwind is mobile-first approach */}
         <div className="searchBar w-[30vw] hidden lg:flex">
           <Searchbar />
         </div>
         <div className="relative hidden w-11 h-5 lg:flex 2xl:h-8 2xl:w-16">
+          {/* Theme toggle switch */}
           <input
-            id="switch-component"
+            id="switch-component-main"
             type="checkbox"
             onChange={toggleTheme}
             className="peer appearance-none w-11 h-5 bg-slate-200 rounded-full checked:bg-slate-700 cursor-pointer transition-colors duration-300 2xl:h-8  2xl:w-16"
           />
           <label
-            htmlFor="switch-component"
+            htmlFor="switch-component-main"
             className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-400 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer 2xl:h-8 2xl:w-8 "
           ></label>
         </div>
+        {/* Sidebar toggle button visible on small screens */}
         <button className="lg:hidden" onClick={() => setIsSidebarOpen(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -57,6 +64,7 @@ const NavBar = () => {
           </svg>
         </button>
       </nav>
+      {/* Sidebar */}
       <div
         className={`sidebar dark:border-l dark:border-l-white/40 w-[70vw] fixed bg-white dark:bg-slate-900 h-screen dark:text-white z-100 right-0 ${sideBarToggle()} flex-col shadow-lg px-5 pb-5`}
       >
@@ -83,13 +91,13 @@ const NavBar = () => {
             <span className="md:text-xl">Theme</span>
             <div className="relative w-11 h-5">
               <input
-                id="switch-component"
+                id="switch-component-sidebar"
                 type="checkbox"
-                onChange={() => toggleTheme()}
+                onChange={toggleTheme}
                 className="peer appearance-none w-11 h-5 bg-slate-200 rounded-full checked:bg-slate-700 cursor-pointer transition-colors duration-300 dark:bg-slate-600"
               />
               <label
-                htmlFor="switch-component"
+                htmlFor="switch-component-sidebar"
                 className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-400 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer"
               ></label>
             </div>
@@ -101,6 +109,7 @@ const NavBar = () => {
           </div>
         </div>
           <div className="FavListWrapper w-full h-full">
+            {/* Favorites list in sidebar on smaller screens */}
             <FavoritesList />
           </div>
       </div>

@@ -2,8 +2,10 @@ import React from "react";
 import useData from "../context/DataContext";
 
 const WeatherCard = () => {
+  // Accessing weather data from the context
   const { data } = useData();
 
+  // Function to map weather conditions to corresponding video files
   function getVideoForWeather(condition) {
     switch (condition) {
       case "Thunderstorm":
@@ -42,7 +44,8 @@ const WeatherCard = () => {
   }
 
   return (
-    <div className="relative videoWrapper h-[80%] mt-[10vh] w-[80%] sm:mt-[10vh] sm:h-[60%] md:mt-[10vh] md:h-[70%] lg:w-[90%]">
+    // Video background with a shade overlay for better text visibility
+    <div className="relative videoWrapper h-[60vh] mt-[10vh] w-[80%] sm:mt-[10vh] sm:h-[50vh] md:mt-[10vh] md:h-[70vh] lg:w-[90%]">
       <video
         className="h-full w-full object-cover rounded-4xl"
         autoPlay
