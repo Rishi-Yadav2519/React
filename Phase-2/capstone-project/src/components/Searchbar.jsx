@@ -2,7 +2,7 @@ import React from "react";
 import useData from "../context/DataContext";
 
 const Searchbar = () => {
-  const { searchTerm, setSearchTerm, fetchData } = useData();
+  const { searchTerm, setSearchTerm, fetchData, fetchForecastData } = useData();
 
   return (
     <>
@@ -13,7 +13,10 @@ const Searchbar = () => {
         className="bg-neutral-200 w-full px-3 py-1 rounded-l-2xl dark:bg-slate-600 outline-0 md:text-xl 2xl:rounded-l-3xl"
       />
       <svg
-        onClick={fetchData}
+        onClick={() => {
+          fetchData();
+          fetchForecastData();
+        }}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
