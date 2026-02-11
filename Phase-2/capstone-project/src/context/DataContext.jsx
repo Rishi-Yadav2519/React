@@ -30,6 +30,9 @@ export const DataProvider = ({ children }) => {
     [],
   );
   const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
+  
+  // Debug: log the API key status (remove in production)
+  console.log("API Key present:", !!apiKey);
 
   // function to get the API key from environment variables and handle the case when it's missing
   const getApiKey = useCallback(() => {
