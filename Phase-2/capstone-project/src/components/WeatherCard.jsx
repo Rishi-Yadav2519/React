@@ -1,9 +1,12 @@
 import React from "react";
 import useData from "../context/DataContext";
+import Loading from "./Loading";
 
 const WeatherCard = () => {
   // Accessing weather data from the context
-  const { data } = useData();
+  const { data, addFavorite, removeFavorite, isFavorite } = useData();
+  const cityName = data?.name;
+  const favoriteActive = cityName ? isFavorite(cityName) : false;
 
   // Function to map weather conditions to corresponding video files
   function getVideoForWeather(condition) {
@@ -43,6 +46,12 @@ const WeatherCard = () => {
     }
   }
 
+  if (data.main == null) {
+    return (
+      <Loading />
+    );
+  }
+
   return (
     // Video background with a shade overlay for better text visibility
     <div className="relative videoWrapper h-[60vh] mt-[10vh] w-[80%] overflow-hidden rounded-4xl sm:mt-[10vh] sm:h-[70vh] md:mt-[10vh] md:h-[70vh] lg:w-[90%]">
@@ -56,9 +65,30 @@ const WeatherCard = () => {
         src={getVideoForWeather(data?.weather?.[0]?.main)}
       ></video>
       <div className="shade flex flex-col w-full h-full absolute top-0 left-0 bg-black/30 rounded-4xl text-white">
-        <p className="font-bold text-xl absolute mt-5 ml-5 xl:text-2xl">
-          {data?.name} Weather Conditions
-        </p>
+        <div className="absolute mt-5 ml-5 flex items-center gap-3 flex-wrap sm:flex-col sm:items-start md:flex-row">
+          <p className="font-bold text-xl xl:text-2xl">
+            {cityName} Weather Conditions
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              if (!cityName) return;
+              if (favoriteActive) {
+                removeFavorite(cityName);
+              } else {
+                addFavorite();
+              }
+            }}
+            disabled={!cityName}
+            className={`rounded-full px-3 py-1 text-sm font-semibold ${
+              favoriteActive
+                ? "bg-amber-400 text-black"
+                : "bg-black/40 text-white"
+            }`}
+          >
+            {favoriteActive ? "Favorited" : "Add Favorite"}
+          </button>
+        </div>
         <div className="allInOneContainer h-full flex flex-col justify-between sm:flex-row md:flex-col lg:h-full lg:flex-row">
           <div className="dataWrapper flex gap-3 border-3 border-blue-300 w-max p-3 rounded-xl self-center mt-[50%] sm:mt-[10%] sm:ml-5 md:mt-[50%] md:ml-0 lg:mt-0 lg:self-end lg:ml-7 lg:mb-7">
             <div className="main flex flex-col justify-center items-center">
@@ -80,6 +110,7 @@ const WeatherCard = () => {
           <div className="windDataWrapper relative flex h-[30%] sm:h-full sm:w-[40%] md:h-[30%] md:w-full lg:self-end lg:w-[60%] lg:h-[40%]">
             <div className="windTextConatiner absolute bg-black/40 h-full w-[50%] py-3 px-5 rounded-l-4xl flex flex-col justify-center items-center sm:px-1 sm:w-[60%] md:px-5 md:w-[50%]">
               <p className="font-semibold text-lg mb-3 md:text-2xl">Wind Speed</p>
+              {/* Display wind speed converted from m/s to km/h */}
               <p className="">{(data?.wind?.speed * 3.6).toFixed(2)} km/h</p>
             </div>
             <video

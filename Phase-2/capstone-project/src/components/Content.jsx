@@ -1,9 +1,16 @@
 import React from 'react'
 import FavoritesList from './FavoritesList'
 import CurrentWeather from './CurrentWeather'
+import useData from '../context/DataContext';
+import Loading from './Loading';
 
 const Content = () => {
 
+  const {loading, error} = useData();
+
+  if (loading) return <Loading />; 
+  if (error) return <div className="w-full h-screen flex justify-center items-center"><p className="text-red-500 text-lg">Error: {error?.message || String(error)}</p></div>; 
+  
   return (
     // Main container for the content of the app, including the current weather and the favorites list
     <div className='w-full flex dark:bg-slate-800 sm:h-max'>
