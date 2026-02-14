@@ -5,7 +5,7 @@ const FavoritesList = () => {
   const { favoriteCities, removeFavorite, selectFavorite } = useData();
 
   return (
-    <div className="w-full h-full p-4 lg:mt-[10vh]">
+    <div className="w-full h-full p-4 lg:mt-[10vh] dark:text-white">
       <p className="text-lg font-semibold mb-3">Favorites</p>
       {favoriteCities.length === 0 ? (
         <p className="text-sm text-neutral-500 dark:text-neutral-300">
